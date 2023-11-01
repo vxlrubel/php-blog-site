@@ -1,23 +1,7 @@
 
-<?php
-    
-    session_start();
+<?php 
 
-    require_once __DIR__ . '/core/config.php';
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>webcome to home</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-
-    <div class="container">
-    <?php
+require_once __DIR__ . '/header.php';
 
 if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] === true) {
     // User is authenticated; display the content here.
@@ -37,16 +21,12 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] === true) {
 
 
 
-echo Users::get_username(1);
+echo Users::get_id('vxlrubel');
 
 
-
-?>
-
-    
-        
-        
-    </div>
-    
-</body>
-</html>
+/**
+ * include footer area
+ * 
+ * @return void
+ */
+require_once __DIR__ . '/footer.php';
