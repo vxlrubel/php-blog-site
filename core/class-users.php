@@ -118,15 +118,33 @@ final class Users{
         $db_user_password = self::get_password( $get_user_id );
 
 
-        if( $username == $db_username && $password == $db_user_password ){
+        if( $username === $db_username && $password === $db_user_password ){
+
             // create session authenticatation
             $_SESSION['authenticated'] = true;
 
-            header('Location: index.php');
+            // set cookie for 15 days
+            setcookie('authenticated', true, time() + (60*60*60*24*15), '/');
+
+            header('Location: ../');
         }else{
-            header('Location: login.php');
+            header('Location: ../login?error');
         }
 
     }
+
+    /**
+     * create authenticate user called
+     * is_user_loged_in()
+     *
+     * @return boolean
+     */
+    public static function is_user_logged_in(){
+        if( isset( $_SESSION['authenticated'] ) && $_COOKIE['authenticated'] == true ){
+            return true;
+        }
+    }
+    
+    
 }
 

@@ -19,16 +19,34 @@
 
 <header class="clearfix">
     <div class="container">
-        <ul>
-            <li class="active"><a href="index.php">Home</a></li>
-            <li><a href="blog.php">blog</a></li>
-            <li><a href="services.php">Services</a></li>
-            <li><a href="portfolios.php">Portfolios</a></li>
-            <li><a href="about.php">About</a></li>
-            <li><a href="contact.php">Contact</a></li>
-            <li><a href="register.php">Register</a></li>
-            <li><a href="login.php">Login</a></li>
-        </ul>
+        <div class="menu-parent">
+            <ul>
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="blog">blog</a></li>
+                <li><a href="service">Service</a></li>
+                <li><a href="portfolio">Portfolios</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="contact">Contact</a></li>
+
+            </ul>
+            <ul>
+                <li class="has-submenu">
+                    <a href="#">My Account</a>
+                    <div class="submenu">
+                        <a href="register">Register</a>
+                        <a href="view-profile">View Profile</a>
+                        <a href="edit-profile">Edit Profile</a>
+                        <?php 
+                            if( Users::is_user_logged_in() ){
+                                printf( '<a href="%s">%s</a>', 'signout', 'Signout' );
+                            }else{
+                                printf( '<a href="%s">%s</a>', 'login', 'Login' );
+                            }
+                        ?>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </header>
 

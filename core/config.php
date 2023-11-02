@@ -29,7 +29,11 @@ try {
 
     $posts_table = $app->query("SHOW TABLES LIKE '$posts'");
 
-    // check user table is not exists
+    /**
+     * create user table
+     * 
+     * @return void
+     */
     if( $users_table->rowCount() == 0 ){
 
         // create user table sql
@@ -42,6 +46,7 @@ try {
             email VARCHAR(30) NOT NULL UNIQUE,
             role VARCHAR(20) DEFAULT 'subscriber',
             password VARCHAR(255) NOT NULL,
+            auth_key VARCHAR(255) NULL,
             reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 
         )";
@@ -49,6 +54,11 @@ try {
         $app->exec( $create_users_table );
     }
 
+    /**
+     * create post table
+     * 
+     * @return void
+     */
     if( $posts_table->rowCount() == 0 ){
         $create_posts_table = "CREATE TABLE $posts(
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -63,6 +73,27 @@ try {
 
         $app->exec( $create_posts_table );
     }
+
+    /**
+     * inser into table app_users
+     * 
+     * @return void
+     */
+
+    $insert_admin = "INSERT INTO $users( username, password, role ) VALUES(:username, :password, :role)";
+
+    $stmt = $app->prepare( $insert_admin );
+
+    $user_admin = 'admin';
+    $admin_pass = 'admin';
+    $admin_role = 'administrator';
+    $stmt->bindParam( ':username', $user_admin, PDO::PARAM_STR );
+    $stmt->bindParam( ':password', $admin_pass, PDO::PARAM_STR );
+    $stmt->bindParam( ':role', $admin_role, PDO::PARAM_STR );
+
+    $stmt->execute();
+    
+    
 } catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }

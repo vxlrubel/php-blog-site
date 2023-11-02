@@ -4,7 +4,7 @@
     <div class="container">
         <div class="login-form">
             <img src="./lib/img/logo-image.png" alt="">
-            <form action="auth.php" method="POST">
+            <form action="core/core-login" method="POST">
                 <div class="input-parent">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" required>

@@ -18,6 +18,7 @@
     --app-menu-items-space: 0;
     --app-space: 50px;
     --app-box-shadow-lg: 0 1rem 3rem rgba(0,0,0,.175);
+    --app-box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
 }
 *,
 *::before,
@@ -70,6 +71,10 @@ a{
 /* *****************************************************
  ******************* DEFAULT cLASSES *******************
  ***************************************************** */
+ .py-5{
+    padding-top: 30px;
+    padding-bottom: 30px;
+ }
  .space{
     display: block;
     width: 100%;
@@ -136,7 +141,7 @@ a{
     margin-right: var(--app-menu-items-space);
  }
 
- header ul li a{
+ header ul li > a{
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -153,7 +158,66 @@ a{
     background-color: var(--app-color-theme-deep);
  }
 
- 
+ .menu-parent {
+    display: flex;
+    justify-content: space-between;
+ }
+ .has-submenu{
+    position: relative;
+ }
+ .submenu{
+    position: absolute;
+    display: none;
+    top: 100%;
+    right: 0;
+    background-color: var(--app-color-white);
+    padding: 20px;
+    z-index: var(--app-z-index);
+    box-shadow: var(--app-box-shadow);
+    width: 150px;
+    animation: fadeinmenu 0.25s ease-in-out;
+    border: ipx solid var(--app-color-border);
+ }
+ .has-submenu:hover > .submenu{
+    display: block;
+ }
+ .submenu::after{
+    position: absolute;
+    bottom: 100%;
+    left: calc(50% - 7px);
+    z-index: var(--app-z-index);
+    height: 0;
+    width: 0;
+    border: 7px solid transparent;
+    border-bottom-color: var(--app-color-white);
+    content: '';
+ }
+ .submenu > a{
+    display: flex;
+    width: 100%;
+    padding: 5px 10px;
+    font-size: var(--app-font-size-small);
+    color: var(--app-color-dark);
+    text-decoration: none;
+    border-radius: var(--app-border-small);
+ }
+ .submenu > a:not(:last-child){
+    margin-bottom: 5px;
+ }
+ .submenu > a:hover{
+    color: var(--app-color-white);
+ }
+
+ @keyframes fadeinmenu{
+    0%{
+        opacity: 0;
+        transform: translateY( 15px ) scale(0.5);
+        transform-origin: 0%;
+    }100%{
+        opacity: 1;
+        transform: none;
+    }
+ }
  /* *****************************************************
  ******************* DEFAULT FOOTER  ********************
  ***************************************************** */
